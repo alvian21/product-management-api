@@ -1,0 +1,20 @@
+version: "3"
+services:
+  product-management-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: product-management-api
+    restart: always
+    ports:
+      - "7610:7610"
+    tty: true
+    container_name: product-management-api
+    env_file:
+      - .env
+    networks:
+      - shared_net
+
+networks:
+  shared_net:
+    external: true
