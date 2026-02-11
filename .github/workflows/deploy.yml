@@ -34,6 +34,7 @@ jobs:
           script: |
             cd /home/alvian/app/product-management-api/
             echo "${{ secrets.ENV_FILE }}" > .env
+            docker rm -f product-management-api || true
             docker compose -f docker-compose.yml down --rmi all
             docker compose -f docker-compose.yml build --no-cache
             docker compose -f docker-compose.yml up -d --force-recreate
