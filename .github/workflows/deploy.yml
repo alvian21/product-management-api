@@ -33,7 +33,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/alvian/app/product-management-api/
-            echo "${{ secrets.ENV_FILE }}" > .env.production
-            docker compose -f docker-compose.yml up --build -d
-            docker container prune -f
-            docker image prune -a -f
+            echo "${{ secrets.ENV_FILE }}" > .env
+            docker compose -f docker-compose.yml down --rmi all
+            docker compose -f docker-compose.yml build --no-cache
+            docker compose -f docker-compose.yml up -d --force-recreate
+            docker system prune -f
