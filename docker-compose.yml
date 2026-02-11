@@ -4,8 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - mysql-container
     image: product-management-api
     restart: always
     ports:
