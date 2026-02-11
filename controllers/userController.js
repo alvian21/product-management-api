@@ -149,6 +149,7 @@ exports.findAll = (req, res) => {
             limit: limit,
             offset: offset,
             attributes: { exclude: ["password"] },
+            paranoid: true,
           })
           .then(function (result) {
             return callback({
@@ -184,6 +185,7 @@ exports.findOne = (req, res) => {
           .findOne({
             where: { id: req.params.id },
             attributes: { exclude: ["password"] },
+            paranoid: true,
           })
           .then(function (user) {
             if (user) {

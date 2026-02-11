@@ -123,6 +123,7 @@ exports.findAll = (req, res) => {
             where: whereClause,
             limit: limit,
             offset: offset,
+            paranoid: true,
           })
           .then(function (result) {
             return callback({
@@ -155,7 +156,7 @@ exports.findOne = (req, res) => {
     [
       function viewEdit(callback) {
         productModel
-          .findOne({ where: { id: req.params.id } })
+          .findOne({ where: { id: req.params.id }, paranoid: true })
           .then(function (product) {
             if (product) {
               return callback({
