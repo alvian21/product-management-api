@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
+      - name: Create .env file
+        run: echo "${{ secrets.ENV_FILE }}" > .env
+
       - name: Copy files to SSH Server
         uses: easingthemes/ssh-deploy@main
         with:
@@ -31,8 +34,6 @@ jobs:
           script: |
             cd /home/alvian/app/product-management-api/
             echo "${{ secrets.ENV_FILE }}" > .env.production
-            echo "${{ secrets.ENV_FILE }}" > .env.development
-            docker compose -f docker-compose.yml down --rmi all
-            docker compose -f docker-compose.yml build --no-cache
-            docker compose -f docker-compose.yml up -d --force-recreate
-            docker system prune -f
+            docker compose -f docker-compose.yml up --build -d
+            docker container prune -f
+            docker image prune -a -f
