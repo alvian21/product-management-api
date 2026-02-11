@@ -11,9 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: Create .env file
-        run: echo "${{ secrets.ENV_FILE }}" > .env
-
       - name: Copy files to SSH Server
         uses: easingthemes/ssh-deploy@main
         with:
